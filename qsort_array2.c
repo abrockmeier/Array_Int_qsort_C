@@ -9,13 +9,43 @@
 & 	IT-Handbuch für Fachinformatiker S.493f (Arrays in C).
 	Dieses Programm ist eine Erweiterung der jeweiligen Codebeispiele als Übung.  
 */
+int ein, i;
+int sizeArray;
+
+int array_in();
+void array_out(int[]);
 
 /*	Funktions deklaration:
 (void -> Methode ohne Rückgabewert!)
 @name: x_qsort 
 @params: zwei Pointer auf je ein Array-Element (Typ Integer) */ 
 void x_qsort(int*, int*);
-	
+
+int array_in(){
+	int werte[sizeArray];
+	// Ausgabe zur Aufforderung des Benutzers eine Zahl zur festlegung der Arraygröße einzugeben.
+		printf ("Bitte bestimmen Sie die Größe des Arrays: ");
+		// Lesen der eingegebenen Zahl und speichern in der Variablen sizeArray:
+		scanf ("%d", &sizeArray);
+		// Benutzer INFO
+		printf ("Der Array hat %d Elemente.\n", sizeArray);
+		// Ausgabe zur Aufforderung des Benutzers die Werte der Array-Elemente einzugeben:
+		printf ("Bitte %d Werte eingeben!\n", sizeArray);
+// For-Schleife  für die Eingabe der Array-Elemente (0...sizeArray)
+		for (i = 0; i < sizeArray; i++) {
+			printf ("%d. Element:", i + 1);
+			// die Eingabe wird in der Variable ein "zwischengespeichert",
+			scanf ("%d", &ein);
+			// und elementweise an den Array übergeben.
+			werte[i] = ein;
+			}
+}
+
+void array_out(int *werte){
+
+}
+
+
 /* Implementierung der x_qsort Funktion:
 	@params:	("*links":Pointer auf die Anfangsadresse vom Array "werte",
 				 "*rechts": Pointer auf die Endadresse vom Array "werte".)
@@ -79,12 +109,12 @@ void x_qsort(int *links, int *rechts){
 
 */
 int main(void) {
-int sizeArray;
-int werte[sizeArray];
-int ein;
-int a;
-int i, j, k, min, max, mul;
 
+
+
+//int a;
+int j, k, min, max;
+int werte[sizeArray];
 // Eine Abfrage zur Auswahl verschiedener Programmfunktionen:
 printf("Bitte wählen Sie eine Aktion aus!\n");
 printf("Um einen Array zu Sortieren bitte die (1) eingeben.\n");
@@ -93,27 +123,16 @@ printf("\n");
 
 printf("Bitte Auswahl treffen:\n");
 
+int a;
 scanf("%d", &a);
 
 switch(a) {
 	// case 1: Array Sortieren:
 	case 1:
-		// Ausgabe zur Aufforderung des Benutzers eine Zahl zur festlegung der Arraygröße einzugeben.
-		printf ("Bitte bestimmen Sie die Größe des Arrays: ");
-		// Lesen der eingegebenen Zahl und speichern in der Variablen sizeArray:
-		scanf ("%d", &sizeArray);
-		// Benutzer INFO
-		printf ("Der Array hat %d Elemente.\n", sizeArray);
-		// Ausgabe zur Aufforderung des Benutzers die Werte der Array-Elemente einzugeben:
-		printf ("Bitte %d Werte eingeben!\n", sizeArray);
-		// For-Schleife  für die Eingabe der Array-Elemente (0...sizeArray)
-		for (i = 0; i < sizeArray; i++) {
-			printf ("%d. Element:", i + 1);
-			// die Eingabe wird in der Variable ein "zwischengespeichert",
-			scanf ("%d", &ein);
-			// und elementweise an den Array übergeben.
-			werte[i] = ein;
-			}
+		
+		
+		array_in();
+
 		// Initialisierung der min/max Werte mit dem "ersten" Element des Arrays [0]. 
 		min = werte[0];
 		max = werte[0];
@@ -140,19 +159,18 @@ switch(a) {
 		printf ("Kleinster Wert: %d\n", min);
 		printf ("Größter Wert: %d\n", max);
 		printf ("\n");
-		
+		printf ("DEBUG - MODUS: ON !\n");
 
-		// Ausgabe zur Aufforderung des Benutzers eine Zahl zur festlegung der Arraygröße einzugeben.
-		printf ("Bitte bestimmen Sie eine natürliche Zahl zur Multiplikation des Arrays: ");
-		// Lesen der eingegebenen Zahl und speichern in der Variablen sizeArray:
-		scanf ("%d", &sizeArray);
-		// Benutzer INFO
-		printf ("Der Array hat %d Elemente.\n", sizeArray);
-		
-		printf ("Die Multiplikation des Arrays erfolgt mit: %d !\n", mul);
-		// Ausgabe zur Aufforderung des Benutzers die Werte der Array-Elemente einzugeben:
-		printf ("Bitte %d Werte eingeben!\n", sizeArray);
-		
+		/* 	Aufruf der x_qsort Funktion (...endlich :-)
+			@params:Wert der Anfangsadresse, bzw. Wert des letzten Elements im Array 
+		 	werden mit übergeben.*/
+		x_qsort(werte, werte + sizeArray);
+
+		// printf für die Formatierung, zur Info für den Benutzer und zum Debuggen.
+		printf ("DEBUG - MODUS: OFF ! \n");
+		printf ("\n");
+		printf ("Ihr Array wurde sortiert: [");
+
 		// nochmal eine For-Schleife für die Ausgabe des sortierten Arrays!
 		for (k = 1; k <= sizeArray ; k++) {
 			printf ("%d", werte[k]);
@@ -166,89 +184,9 @@ switch(a) {
 		printf ("]");
 		printf ("\n");
 		break;
+	//case 2:
+	//	setjmp 
 
-
-	case 2:
-		
-		// Ausgabe zur Aufforderung des Benutzers eine Zahl zur festlegung der Arraygröße einzugeben.
-		printf ("Bitte bestimmen Sie die Größe des Arrays: ");
-		// Lesen der eingegebenen Zahl und speichern in der Variablen sizeArray:
-		scanf ("%d", &sizeArray);
-		// Benutzer INFO
-		printf ("Der Array hat %d Elemente.\n", sizeArray);
-		// Ausgabe zur Aufforderung des Benutzers die Werte der Array-Elemente einzugeben:
-		printf ("Bitte %d Werte eingeben!\n", sizeArray);
-		// For-Schleife  für die Eingabe der Array-Elemente (0...sizeArray)
-		for (i = 0; i < sizeArray; i++) {
-			printf ("%d. Element:", i + 1);
-			// die Eingabe wird in der Variable ein "zwischengespeichert",
-			scanf ("%d", &ein);
-			// und elementweise an den Array übergeben.
-			werte[i] = ein;
-			}
-		// Initialisierung der min/max Werte mit dem "ersten" Element des Arrays [0]. 
-		min = werte[0];
-		max = werte[0];
-		// Anfang der Ausgabe des vollständigen (eingegebenen)Arrays:
-		printf ("Ihre Werte: [");
-		// mit der For-Schleife die alle Elemente des Arrays durchläuft:
-		for (j = 0; j < sizeArray; j++) {
-			printf ("%d", werte[j]);
-			/* Diese If-Abfrage sorgt dafür, dass die Anzahl der Kommata
-			im Array bei der Ausgabe korrekt sind.*/
-			if (j + 1 < sizeArray) {
-				printf (", ");
-			}
-			/* In einem Schritt (innerhalb der selben For-Schleife) werden das größte,
-			bzw. das kleinste Element des Arrays bestimmt. */
-			if (werte[j] > max)
-				max = werte[j];
-			if (werte[j] < min)
-				min = werte[j];
-			}
-		// Eine Menge printf für die Formatierung, zur Info für den Benutzer und zum Debuggen.
-		printf ("]");
-		printf ("\n");
-		printf ("Kleinster Wert: %d\n", min);
-		printf ("Größter Wert: %d\n", max);
-		printf ("\n");
-
-		// Ausgabe zur Aufforderung des Benutzers eine natürliche Zahl zur Multiplikation mit dem Array.
-		printf ("Bitte bestimmen Sie eine natürliche Zahl zur Multiplikation mit dem Array: ");
-		// Lesen der eingegebenen Zahl und speichern in der Variablen mul:
-		scanf ("%d", &mul);
-		printf("Der Array wird mit %d multipliziert.\n", mul);
-		for (i = 0; i < sizeArray; i++) {
-			werte[i] = werte[i] * mul;
-			}
-		/*
-		printf ("DEBUG - MODUS: ON !\n");
-
-		 	Aufruf der x_qsort Funktion (...endlich :-)
-			@params:Wert der Anfangsadresse, bzw. Wert des letzten Elements im Array 
-		 	werden mit übergeben.
-		x_qsort(werte, werte + sizeArray);
-
-		// printf für die Formatierung, zur Info für den Benutzer und zum Debuggen.
-		printf ("DEBUG - MODUS: OFF ! \n");
-		printf ("\n");
-		printf ("Ihr Array wurde sortiert: [");
-		*/
-		printf ("Ergebniss der Multiplikation des Arrays mit der Zahl %d:\n", mul);
-		printf ("Ihre Werte: [");
-		// nochmal eine For-Schleife für die Ausgabe des sortierten Arrays!
-		for (k = 0; k < sizeArray ; k++) {
-			printf ("%d", werte[k]);
-			/* Sorgt dafür, dass die Anzahl der Kommata
-			im sortierten Array bei der Ausgabe korrekt sind.*/
-			if (k < sizeArray -1) {
-			printf (", ");
-			}
-		}	
-		// letzte Formatierungen...
-		printf ("]");
-		printf ("\n");
-		break;
 	}
 // Erfolreiches Beenden der Main-Funktion!
 return EXIT_SUCCESS;
